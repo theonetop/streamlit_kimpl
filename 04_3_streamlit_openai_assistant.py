@@ -2,16 +2,9 @@ from openai import OpenAI
 import streamlit as st
 import time
 
-"""
-assistant를 사용한다고 해서, thread에 있는 메세지를 뽑아오는지 알았더니 그게 아님
-여기 사이트에서 질문, 답변 한것만 나오게함 > session_state 사용
+assistant_id = st.secrets['assistant_id']
+thread_id = st.secrets['thread_id']
 
-문제점 : 1명을 위한 서비스 > 스레드를 새로 생성해 주면 되겠네
-
-"""
-
-assistant_id = "asst_tyL2gmT5xWTtpdmZ5KmEwR56"
-# thread_id = "thread_eQs1aOxBnhE5G7m4v3ekm2yl"
 
 with st.sidebar:
     st.link_button("네이버 바로가기", "https://www.naver.com")
@@ -23,7 +16,7 @@ with st.sidebar:
 
     openai_api_key = st.text_input("OpenAI API KEY", type="password")
     client = OpenAI(api_key=openai_api_key)
-    thread_id = st.text_input("Thread ID", value="thread_eQs1aOxBnhE5G7m4v3ekm2yl")
+    thread_id = st.text_input("Thread ID", value=thread_id)
     
     if st.button("Create a new Thread"):    # 새로운 스레드 id make
         thread = client.beta.threads.create()
